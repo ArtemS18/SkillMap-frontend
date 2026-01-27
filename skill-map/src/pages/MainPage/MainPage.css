@@ -1,0 +1,33 @@
+#graph-field{
+    max-height: 600px;
+    min-height: 400px;
+    width: 60%;
+    display: flex;
+    position: relative;
+    margin: 0 auto;
+    z-index: 0;
+}
+
+#graph-card-body{
+    padding: 0px !important;
+}
+
+#graph-container{
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    gap: 0px;
+    flex-wrap: wrap;
+}
+
+#graph-node-details{
+    width: 40%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-left: 2px solid #383838;
+    overflow-y:scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 600px;
+}

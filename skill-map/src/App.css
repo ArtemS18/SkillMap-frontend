@@ -1,0 +1,36 @@
+#root {
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+}
+
+main{
+  max-width: 1200px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+
+.form-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-card {
+  width: 100%;
+  max-width: 380px;
+  border-radius: 12px;
+  border: #383838 2px solid;
+  background-color: rgb(34, 34, 40);}
+
+.basic-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.submit-button{
+    background-color: #75d668;
+}

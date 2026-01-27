@@ -1,0 +1,7 @@
+.navbar-class{
+    display: block;
+    position: sticky !important; 
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
