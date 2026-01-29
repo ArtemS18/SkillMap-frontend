@@ -14,7 +14,9 @@
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
     "noEmit": true,
+    "strictNullChecks": false,
     "jsx": "react-jsx",
+    
 
     /* Linting */
     "strict": true,

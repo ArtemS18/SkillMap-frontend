@@ -44,10 +44,7 @@ function RoadmapPage(){
         const response = await getRoadmap();
         setIsLoading(false);
         if (response?.status == 200){
-            
             setActiveRoadmap(response.data);
-        }else if (response?.status == 401){
-                navigate('/login');
         } else if (response?.status == 404){
             setHasActiveRoadmap(false);
         } else {
@@ -59,8 +56,6 @@ function RoadmapPage(){
         const response = await compliteModuleInRoadmap(activeRoadmap?.current_module);
         if (response?.status == 200){
             setActiveRoadmap(response.data);
-        } else if (response?.status == 401){
-            navigate("/login");
         }
     }
 

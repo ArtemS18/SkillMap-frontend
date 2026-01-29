@@ -27,7 +27,6 @@ function AuthoPage() {
         setError({isError: true, detail: response?.data.detail});
       }else{
         navigate("/");
-        setToken(response?.data.access_token);
       }
     }catch(e: Error | any){
       setError({isError: true, detail: e?.message || "Ошибка сети"});

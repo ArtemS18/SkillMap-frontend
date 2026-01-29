@@ -3,6 +3,7 @@ import Navbar from "react-bootstrap/esm/Navbar";
 import './NavBar.css'
 import { NavLink } from "react-router-dom";
 import { Nav } from "react-bootstrap";
+import { logout } from "../api/api";
 
 function NavBar() {
   return (
@@ -22,7 +23,7 @@ function NavBar() {
                     <Nav.Link as={NavLink} to="/">Мой роадмап</Nav.Link>
                 </Nav>
                 <Navbar.Text>
-                <a href="/login">Mark Otto</a>
+                  <a onClick={()=>logout()}href="/login">Выйти</a>
                 </Navbar.Text>
             </Nav>
         </Navbar.Collapse>

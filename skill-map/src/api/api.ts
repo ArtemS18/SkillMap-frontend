@@ -1,13 +1,11 @@
 import axios, { AxiosError, type AxiosResponse} from "axios";
-import { use } from "react";
-import { useNavigate } from "react-router-dom";
 
 
 axios.defaults.baseURL = "http://localhost:8090/api/";
 
 axios.interceptors.request.use(
   (config) => {
-    const token = getAuthHeaders();
+    const token = getAccessToken();
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
         console.log(config.headers.Authorization);
@@ -19,7 +17,67 @@ axios.interceptors.request.use(
   }
 );
 
-function getAuthHeaders() {
+let failedQueues:Array<{
+    resolve: (token: string)=>void,
+    reject: (err: any)=>void
+}> = [];
+let isRefreshing = false;
+
+
+axios.interceptors.response.use(
+  (response) => response,
+  async (error: AxiosError) => {
+    if (error.response?.status === 401 && error.config && !(error.config as any)._retry && !error.config.url?.includes("auth/refresh") && !error.config.url?.includes("auth/login")) {
+        console.log("Trying to refresh token");
+        if (isRefreshing) {
+            return new Promise((resolve, reject) => {failedQueues.push({resolve, reject});}).then((token) => {
+                error.config.headers['Authorization'] = 'Bearer ' + token;
+                return axios(error.config);
+            }
+            ).catch((err) => {
+                return Promise.reject(err);
+            });
+        }
+        isRefreshing=true;
+        (error.config as any)._retry = true;
+        try{
+            console.log("Send to refresh token");
+            const response = await axios.post("auth/refresh", {"refresh_token": localStorage.getItem("refreshToken")});
+            if (response.status != 200){
+                throw new Error("Не удалось обновить токен");
+            }
+            setToken(response.data.access_token);
+            localStorage.setItem("refreshToken", response.data.refresh_token);
+            failedQueues.forEach(prom=>{
+                prom.resolve(response.data.access_token)
+            })
+            isRefreshing=false;
+            failedQueues = [];
+        }catch(error){
+            console.log("Fail to refresh token");
+            failedQueues.forEach(prom=>{
+                prom.reject(error)
+            })
+            failedQueues = [];
+            logout();
+            return Promise.reject(error);
+        }finally{
+            isRefreshing=false;
+        }
+
+        }
+        return Promise.reject(error)
+    }
+    
+);
+export function logout(){
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    window.location.href = "/login";
+}
+
+
+function getAccessToken() {
     const token = localStorage.getItem("accessToken");
     return token;
 }
@@ -32,10 +90,15 @@ export async function authorize(username: string, password: string) {
     data.append("username", username);
     data.append("password", password);
     data.append("scope", "roadmap.write roadmap.read me");
-
-    return axios.post("auth/login", data)
-        .then((response: AxiosResponse)=>{return response})
-        .catch((error: AxiosError)=>{return error.response});
+    try{
+        const response = await axios.post("auth/login", data)
+        localStorage.setItem("refreshToken", response.data.refresh_token);
+        localStorage.setItem("accessToken", response.data.access_token);
+        return response
+    }catch(e: any){
+        return Promise.reject(e);
+    }
+    
 
 }
 

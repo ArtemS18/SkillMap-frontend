@@ -28,8 +28,6 @@ function MainPage(){
                 setEdgesList(response.data.edges)
                 setNodesList(response.data.nodes)
                 console.log(response.data.nodes)
-            } else if (response?.status == 401){
-                navigate('/login');
             }
         }
 
