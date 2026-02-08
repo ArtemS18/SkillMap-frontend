@@ -1,7 +1,7 @@
 import axios, { AxiosError, type AxiosResponse} from "axios";
 import { type IRoadmap, type IModule, type LoginResponse, type IPath, type IModuleDetails } from "../types";
 
-axios.defaults.baseURL = "http://host.docker.internal:8090/api/";
+axios.defaults.baseURL = "http://localhost:80/api/";
 
 axios.interceptors.request.use(
   (config) => {
@@ -154,7 +154,7 @@ export async function createRoadmap(query: string){
 }
 
 export async function getRoadmap(){
-    return apiCall<IRoadmap>(()=>axios.get("/my-roadmap"))
+    return apiCall<IRoadmap>(()=>axios.get(`/my-roadmap/`))
 }
 
 export async function compliteModuleInRoadmap(code: string){
