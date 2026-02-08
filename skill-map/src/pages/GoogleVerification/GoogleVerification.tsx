@@ -36,8 +36,6 @@ function GoogleVerification() {
   useEffect(()=>{onSubmit()}, [])
   return (
     <div className="form-container">
-      <Card className="form-card">
-        <Card.Body>
           {error.isError ? 
           (<Alert key="danger" variant="danger">
             {error?.detail ? error.detail: "Неизвестная ошибка!"}
@@ -45,15 +43,13 @@ function GoogleVerification() {
             (
                 <>
                     {isLoading ? (
-                        <Card.Title>Проверям вас...</Card.Title>
+                        <Card.Title>Подождите...</Card.Title>
                     ):(
                         <Card.Title>Проверка пройдена ✅</Card.Title>
                     )}
                 </>
             )
           }
-        </Card.Body>
-      </Card>
     </div>
   )
 }

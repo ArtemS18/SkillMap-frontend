@@ -19,11 +19,28 @@ function RegisterPage() {
     const formData = new FormData(e.currentTarget);
     const email = formData.get('email') as string
     const password = formData.get('password') as string
-    const firstname = formData.get('firstname') as string
-    const lastname = formData.get('lastname') as string
+    const name = formData.get('name') as string
+    const password_check = formData.get('password_check') as string
+
+    if (!email){
+      setError({isError: true, detail: "Введите почту"});
+      return
+    }
+    if (!password){
+      setError({isError: true, detail: "Введите пароль"});
+      return
+    }
+    if (!name){
+      setError({isError: true, detail: "Введите имя"});
+      return
+    }
+    if (password != password_check){
+      setError({isError: true, detail: "Пароли не совпадают"});
+      return
+    }
 
     setIsLoading(true);
-    const response = await register(email, password, firstname, lastname)
+    const response = await register(email, password, name)
     setIsLoading(false);
 
     if (response.ok == false){
@@ -52,14 +69,14 @@ function RegisterPage() {
             <Form.Group className="mb-3">
               <Form.Control type="email" name='email' placeholder="Введите почту" />
             </Form.Group>
-            <Form.Group className="mb-3"> 
-              <Form.Control type="firstname" name='firstname' placeholder="Введите имя" />
-            </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Control type="lastname" name='lastname' placeholder="Введите фамилию" />
+              <Form.Control type="name" name='name' placeholder="Введите ваше имя" />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Control type="password" name='password' placeholder="Придумайте пароль" />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Control type="password" name='password_check' placeholder="Повторите пароль" />
             </Form.Group>
 
             <Button variant="success" 

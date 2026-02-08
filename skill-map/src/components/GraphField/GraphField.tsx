@@ -3,7 +3,6 @@ import { Card, ListGroup } from 'react-bootstrap';
 import { darkTheme, GraphCanvas } from 'reagraph';
 import type {IModule } from '../../types';
 import "./GraphField.css"
-import { useNavigate } from 'react-router-dom';
 import { getNodeDetails } from '../../api/api';
 
 function GraphField(props: any){

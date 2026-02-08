@@ -10,7 +10,7 @@ export type RoadmapProps = {
     onCompliteRoadmap: ()=>void
 }
 
-function ActiveRoadmap({activeRoadmap, activeKey, activeModule, onCompliteModule, onCompliteRoadmap}: RoadmapProps){
+function ActiveRoadmap({activeRoadmap, activeKey, activeModule, onCompliteModule}: RoadmapProps){
     // visibleModules = activeRoadmap?.path.slice(activeRoadmap?.complited ?? 0) ?? [];
     const activeRef = useRef<HTMLDivElement | null>(null);
 

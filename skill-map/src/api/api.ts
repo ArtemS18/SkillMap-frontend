@@ -120,12 +120,11 @@ export async function authorizeOAuth(code: string) {
 }
 
 
-export async function register(email: string, password: string, firstname: string, lastname: string) {
+export async function register(email: string, password: string, name: string) {
     const data = new FormData();
     data.append("email", email);
     data.append("password", password);
-    data.append("firstname", firstname);
-    data.append("lastname", lastname);
+    data.append("name", name);
 
     return apiCall(()=>axios.post("auth/reg", data))
 

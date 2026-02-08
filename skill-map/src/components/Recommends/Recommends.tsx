@@ -1,4 +1,4 @@
-import { Button, Card, CardGroup, Row } from "react-bootstrap"
+import { Button, Card, Row } from "react-bootstrap"
 import type { IPath } from "../../types"
 
 type RecsProps = {
