@@ -13,7 +13,7 @@ function CreateRoadmap({error, onCreate}: Props){
             <Card.Title style={{margin: "20px", alignItems: "center", justifyContent: "center"}}>
                 <h1>Создай новый роадмап.</h1>
             </Card.Title>
-            <InputGroup className="mb-3 w-50 mx-auto">
+            <InputGroup className="mb-3">
                 <Form.Control
                 placeholder="Расскажи, о том что умеешь и что хочешь изучить"
                 aria-describedby="basic-addon2"
