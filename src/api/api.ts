@@ -4,6 +4,7 @@ import { type IRoadmap, type IModule, type LoginResponse, type IPath, type IModu
 export const API_URL = import.meta.env.VITE_API_URL || "http://skillmap.ddns.net/api/";
 axios.defaults.baseURL = API_URL;
 
+
 axios.interceptors.request.use(
   (config) => {
     const token = getAccessToken();
