@@ -131,7 +131,7 @@ function RoadmapPage(){
                 {
                     
                     hasActiveRoadmap === true && activeRoadmap && (
-                        <div style={{overflowY: "scroll", maxHeight: "75vh"}}>
+                        <div style={{overflowY: "scroll", maxHeight: "100vh"}}>
                             <ActiveRoadmap 
                                 activeRoadmap={activeRoadmap} 
                                 activeModule={activeModule}
